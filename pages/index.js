@@ -3,7 +3,8 @@ import styles from "../styles/Home.module.css";
 import Header from "../components/Header";
 import LotteryEntrance from "../components/LotteryEntrance";
 import { useMoralis } from "react-moralis";
-import { NFT } from 'web3uikit';
+import { Illustration } from 'web3uikit';
+import { clearPreviewData } from "next/dist/server/api-utils";
 
 
 const supportedChains = ["31337", "4"];
@@ -24,6 +25,22 @@ export default function Home() {
 
       <div className={styles.title}>
           <h1>We are a DAO Community</h1>
+
+          {isWeb3Enabled ? (
+        <div>
+          {supportedChains.includes(parseInt(chainId).toString()) ? (
+            <div className="flex flex-row">
+              <LotteryEntrance className="p-8" />
+            </div>
+          ) : (
+            <div style={{color: "red"}}>{`Please switch to a supported chainId. The supported Chain Ids are: ${supportedChains}`}</div>
+          )}
+        </div>
+      ) : (
+        <div style={{color: "red"}}>Please connect to a Wallet</div>
+      )}
+
+
           <div className={styles.pointer}></div>
           <img src="https://github.com/itsjenm/resistanc3/blob/main/img/resistanc3_High_Res_Logo.png?raw=true" className="logo" style={{ width: "40%", height: "auto"}}></img>
           
@@ -31,32 +48,29 @@ export default function Home() {
           <div className={styles.pointer2}>
           </div>
 
+
+      </div>
+      <h1 style={{textAlign: "center", color: "green"}}>How it works\\</h1>
+      <div className={styles.main}>
+    
+
+      <div className={styles.grid}>
+      <Illustration logo="pack" />
       </div>
 
-    
-      {isWeb3Enabled ? (
-        <div>
-          {supportedChains.includes(parseInt(chainId).toString()) ? (
-            <div className="flex flex-row">
-              <LotteryEntrance className="p-8" />
-            </div>
-          ) : (
-            <div>{`Please switch to a supported chainId. The supported Chain Ids are: ${supportedChains}`}</div>
-          )}
-        </div>
-      ) : (
-        <div>Please connect to a Wallet</div>
-      )}
-      <div className={styles.main}>
-      <h3>How it works\\</h3>
-      <p>
-      <NFT address="0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB"
-  chain="eth"
-  fetchMetadata
-  metadata={{}}
-  name="punk-nft"
-  tokenId="1" />
-      </p>
+      <div className={styles.description}>
+        <h3 style={{color: "blue" }}>Learn Cybersecurity\\</h3>
+        <p style={{fontSize: "18px"}}>Work through the series of challenges that will help you gain analytical skills in Cybersecurity.</p>
+      </div>
+      </div>
+      <div className={styles.grid2}>
+        <p>
+        <h3 style={{textAlign: "center", color: "blue"}}>Hack-To-Earn</h3>
+        <ul>
+          <li>1. Pick your level of experience</li>
+          <li>2. Decrypt NFT</li>
+          <li>3. Earn an NFT badge, tokems, and more</li>
+          </ul></p>
       </div>
     </div>
   );
